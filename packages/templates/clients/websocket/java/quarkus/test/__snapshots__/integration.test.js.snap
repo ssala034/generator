@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing if generated client match snapshot generate simple client for hoppscotch echo: HoppscotchEchoWebSocketClient.java 1`] = `
+"//////////////////////////////////////////////////////////////////////
+///
+/// Hoppscotch Echo WebSocket Client - 1.0.0
+/// Protocol: wss
+/// Host: echo-websocket.hoppscotch.io
+///
+//////////////////////////////////////////////////////////////////////
+
+
+package com.asyncapi;
+
+import io.quarkus.websockets.next.WebSocketClient;
+import io.quarkus.websockets.next.WebSocketClientConnection;
+import io.quarkus.websockets.next.OnOpen;
+import io.quarkus.websockets.next.OnClose;
+import io.quarkus.websockets.next.OnError;
+import io.quarkus.websockets.next.OnTextMessage;
+import io.quarkus.websockets.next.CloseReason;
+import jakarta.inject.Inject;
+import io.quarkus.logging.Log;
+
+@WebSocketClient(path = \\"/\\")  
+public class HoppscotchEchoWebSocketClient{
+
+  @Inject
+  WebSocketClientConnection connection;
+
+  @OnOpen
+  public void onOpen() {
+      String broadcastMessage = \\"Echo called from Hoppscotch Echo WebSocket Client server\\";
+      Log.info(\\"Connected to Hoppscotch Echo WebSocket Client server\\");
+      Log.info(broadcastMessage);
+  }
+
+  @OnTextMessage
+  public void sendEchoMessage(String message, WebSocketClientConnection connection) {
+      Log.info(\\"Received text message: \\" + message);
+  
+  }
+
+  @OnError
+  public void onError(Throwable throwable) {
+      Log.error(\\"Websocket connection error: \\" + throwable.getMessage());
+  }
+
+
+
+  @OnClose
+  public void onClose(CloseReason reason, WebSocketClientConnection connection) {
+      int code = reason.getCode();
+      Log.info(\\"Websocket disconnected from Postman Echo WebSocket Client with Close code: \\" + code);
+  }
+}
+
+
+
+"
+`;
+
+exports[`testing if generated client match snapshot generate simple client for hoppscotch echo: HoppscotchEchoWebSocketClientConnector.java 1`] = `
+"
+package com.asyncapi;
+
+import io.quarkus.websockets.next.WebSocketConnector;
+import io.quarkus.websockets.next.WebSocketClientConnection;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.annotation.PostConstruct;
+import java.net.URI;
+import io.quarkus.logging.Log;
+import io.quarkus.runtime.Startup;
+
+  @Startup
+  @Singleton  
+  public class HoppscotchEchoWebSocketClientConnector{
+
+    @Inject
+    WebSocketConnector<HoppscotchEchoWebSocketClient> connector;
+
+
+
+    @PostConstruct
+    void openAndSendMessagesWithDelay() {
+        new Thread(() -> {
+            try {
+                Log.info(\\"Starting WebSocket connection attempt...\\");
+                WebSocketClientConnection connection = connector.connectAndAwait();
+
+                // Wait 2 seconds before first message
+                Thread.sleep(2000);
+
+                // Send 5 messages
+                for (int i = 1; i <= 5; i++) {
+                    String msg = \\"Message #\\" + i + \\" from Quarkus\\";
+                    connection.sendTextAndAwait(msg);
+                    Log.info(\\"Sent: \\" + msg);
+                    Thread.sleep(5000);
+                }
+
+                // Wait 10 seconds after final message
+                Log.info(\\"All messages sent. Waiting 10 seconds before closing...\\");
+                Thread.sleep(10000);
+
+                connection.closeAndAwait();
+                Log.info(\\"Connection closed gracefully.\\");
+
+            } catch (Exception e) {
+                Log.error(\\"Error during WebSocket communication\\", e);
+            }
+        }).start();
+    }
+  }
+
+
+
+"
+`;
+
+exports[`testing if generated client match snapshot generate simple client for postman echo: PostmanEchoWebSocketClient.java 1`] = `
+"//////////////////////////////////////////////////////////////////////
+///
+/// Postman Echo WebSocket Client - 1.0.0
+/// Protocol: wss
+/// Host: ws.postman-echo.com
+/// Path: /raw
+///
+//////////////////////////////////////////////////////////////////////
+
+
+package com.asyncapi;
+
+import io.quarkus.websockets.next.WebSocketClient;
+import io.quarkus.websockets.next.WebSocketClientConnection;
+import io.quarkus.websockets.next.OnOpen;
+import io.quarkus.websockets.next.OnClose;
+import io.quarkus.websockets.next.OnError;
+import io.quarkus.websockets.next.OnTextMessage;
+import io.quarkus.websockets.next.CloseReason;
+import jakarta.inject.Inject;
+import io.quarkus.logging.Log;
+
+@WebSocketClient(path = \\"/raw\\")  
+public class PostmanEchoWebSocketClient{
+
+  @Inject
+  WebSocketClientConnection connection;
+
+  @OnOpen
+  public void onOpen() {
+      String broadcastMessage = \\"Echo called from Postman Echo WebSocket Client server\\";
+      Log.info(\\"Connected to Postman Echo WebSocket Client server\\");
+      Log.info(broadcastMessage);
+  }
+
+  @OnTextMessage
+  public void sendEchoMessage(String message, WebSocketClientConnection connection) {
+      Log.info(\\"Received text message: \\" + message);
+  
+  }
+
+  @OnError
+  public void onError(Throwable throwable) {
+      Log.error(\\"Websocket connection error: \\" + throwable.getMessage());
+  }
+
+
+
+  @OnClose
+  public void onClose(CloseReason reason, WebSocketClientConnection connection) {
+      int code = reason.getCode();
+      Log.info(\\"Websocket disconnected from Postman Echo WebSocket Client with Close code: \\" + code);
+  }
+}
+
+
+
+"
+`;
+
+exports[`testing if generated client match snapshot generate simple client for postman echo: PostmanEchoWebSocketClientConnector.java 1`] = `
+"
+package com.asyncapi;
+
+import io.quarkus.websockets.next.WebSocketConnector;
+import io.quarkus.websockets.next.WebSocketClientConnection;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.annotation.PostConstruct;
+import java.net.URI;
+import io.quarkus.logging.Log;
+import io.quarkus.runtime.Startup;
+
+  @Startup
+  @Singleton  
+  public class PostmanEchoWebSocketClientConnector{
+
+    @Inject
+    WebSocketConnector<PostmanEchoWebSocketClient> connector;
+
+
+
+    @PostConstruct
+    void openAndSendMessagesWithDelay() {
+        new Thread(() -> {
+            try {
+                Log.info(\\"Starting WebSocket connection attempt...\\");
+                WebSocketClientConnection connection = connector.connectAndAwait();
+
+                // Wait 2 seconds before first message
+                Thread.sleep(2000);
+
+                // Send 5 messages
+                for (int i = 1; i <= 5; i++) {
+                    String msg = \\"Message #\\" + i + \\" from Quarkus\\";
+                    connection.sendTextAndAwait(msg);
+                    Log.info(\\"Sent: \\" + msg);
+                    Thread.sleep(5000);
+                }
+
+                // Wait 10 seconds after final message
+                Log.info(\\"All messages sent. Waiting 10 seconds before closing...\\");
+                Thread.sleep(10000);
+
+                connection.closeAndAwait();
+                Log.info(\\"Connection closed gracefully.\\");
+
+            } catch (Exception e) {
+                Log.error(\\"Error during WebSocket communication\\", e);
+            }
+        }).start();
+    }
+  }
+
+
+
+"
+`;

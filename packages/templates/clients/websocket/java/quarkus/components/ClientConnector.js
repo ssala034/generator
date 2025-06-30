@@ -11,7 +11,7 @@ export default function ClientConnector({clientName, serverBaseURI}) {
 public class ${clientName}Connector{`}
             </Text>
             <ConnectorFields clientName={clientName} />
-            <InitConnector serverURI={serverBaseURI} />
+            <InitConnector/>
         </Text>
 
     );
