@@ -1,4 +1,4 @@
-import { getClientName, getInfo, getServer, getTitle } from '@asyncapi/generator-helpers';
+import { getClientName, getInfo, getQueryParams, getServer, getTitle } from '@asyncapi/generator-helpers';
 import { File } from '@asyncapi/generator-react-sdk';
 import { FileHeaderInfo } from '../../../../../../components/FileHeaderInfo.js';
 import { Requires } from '../../../../../../components/Requires.js';
@@ -10,6 +10,7 @@ export default async function ({ asyncapi, params }) {
   const server = getServer(asyncapi.servers(), params.server);
   const info = getInfo(asyncapi);
   const title = getTitle(asyncapi);
+  const queryParams = getQueryParams(asyncapi.channels());
   const clientName = getClientName(asyncapi, params.appendClientSuffix, params.customClientName);
   const operations = asyncapi.operations();
   const clientJavaName = clientName + ".java";
@@ -21,8 +22,8 @@ export default async function ({ asyncapi, params }) {
         info={info}
         server={server}
       />
-      <Requires/>
-      <EchoWebSocket clientName={clientName} pathName={pathName} title={title} operations={operations} />
+      <Requires queryParams={queryParams}/>
+      <EchoWebSocket clientName={clientName} pathName={pathName} title={title} queryParams={queryParams} operations={operations} />
     </File>
     
   );

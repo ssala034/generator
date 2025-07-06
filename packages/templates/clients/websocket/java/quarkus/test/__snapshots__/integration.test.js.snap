@@ -51,7 +51,7 @@ public class HoppscotchEchoWebSocketClient{
   @OnClose
   public void onClose(CloseReason reason, WebSocketClientConnection connection) {
       int code = reason.getCode();
-      Log.info(\\"Websocket disconnected from Postman Echo WebSocket Client with Close code: \\" + code);
+      Log.info(\\"Websocket disconnected from Hoppscotch Echo WebSocket Client with Close code: \\" + code);
   }
 }
 
