@@ -7,7 +7,7 @@ export function ClientFields({ queryParams }) {
   const queryParamsArray = queryParams && Array.from(queryParams.entries());
   
   if(queryParamsArray) {
-    queryParamsVariables = `private HashMap<String, String> params;\n`;
+    queryParamsVariables = `\nprivate HashMap<String, String> params;\n`;
     queryParamsVariables += queryParamsArray.map((param) => {
       const paramName = toCamelCase(param[0]);
       return `private String ${paramName};`;                               
@@ -19,7 +19,6 @@ export function ClientFields({ queryParams }) {
     <Text indent={2} newLines={2}>
       {`@Inject
 WebSocketClientConnection connection;
-
 ${queryParamsVariables}`}
     </Text>
   );

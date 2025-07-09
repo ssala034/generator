@@ -11,6 +11,7 @@ export default function OnClose({ title }) {
       int code = reason.getCode();
       Log.info("Websocket disconnected from ${title} with Close code: " + code);
   }
+
 }
 
 `}

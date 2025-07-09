@@ -8,9 +8,9 @@ export function QueryParamsVariables({ queryParams }) {
 
   return queryParams.map((param) => {
     const paramName = toCamelCase(param[0]);
-    const variableDefinition = `${paramName} = (${paramName} != null && !${paramName}.isEmpty()) ? ${paramName} :  System.getenv("${paramName.toUpperCase()}");`;
-    const ifQueryProvided = `if (${paramName} != null){`;
-    const assignment = `params.put("${paramName}", ${paramName});`;
+    const variableDefinition = `this.${paramName} = (${paramName} != null && !${paramName}.isEmpty()) ? ${paramName} :  System.getenv("${paramName.toUpperCase()}");`;
+    const ifQueryProvided = `if (this.${paramName} != null){`;
+    const assignment = `params.put("${paramName}", this.${paramName});`;
     const closingTag = '}\n';
     return (
       <>

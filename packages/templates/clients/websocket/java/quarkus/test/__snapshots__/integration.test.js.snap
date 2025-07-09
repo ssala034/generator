@@ -22,11 +22,13 @@ import io.quarkus.websockets.next.CloseReason;
 import jakarta.inject.Inject;
 import io.quarkus.logging.Log;
 
+
 @WebSocketClient(path = \\"/\\")  
 public class HoppscotchEchoWebSocketClient{
 
   @Inject
   WebSocketClientConnection connection;
+
 
   @OnOpen
   public void onOpen() {
@@ -142,11 +144,13 @@ import io.quarkus.websockets.next.CloseReason;
 import jakarta.inject.Inject;
 import io.quarkus.logging.Log;
 
+
 @WebSocketClient(path = \\"/raw\\")  
 public class PostmanEchoWebSocketClient{
 
   @Inject
   WebSocketClientConnection connection;
+
 
   @OnOpen
   public void onOpen() {
